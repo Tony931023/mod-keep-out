@@ -1,4 +1,4 @@
-#include "Configuration/Config.h"
+#include "Config.h"
 #include "Player.h"
 #include "Creature.h"
 #include "AccountMgr.h"
@@ -53,14 +53,21 @@ public:
             do
             {
                 CharacterDatabase.Query("INSERT INTO `map_exploit` (`player`, `map`, `area`) VALUES ('{}', '{}', '{}')", playername.c_str(), mapId, player->GetAreaId());
-                ChatHandler(player->GetSession()).PSendSysMessage("You have gone to a forbidden place your actions have been logged.");
+                ChatHandler(player->GetSession()).PSendSysMessage("Has ido a un lugar prohibido tus acciones han sido registradas.");
 
-                uint32& warninggiven = player->CustomData.GetDefault<Playerwarning>("warning")->warning;
+                /*uint32& warninggiven = player->CustomData.GetDefault<Playerwarning>("warning")->warning;
 
                 if (warninggiven == maxwarnings)
                     player->GetSession()->KickPlayer();
                 else
-                    warninggiven++;
+                    warninggiven++;*/
+				
+				std::string tag_colour = "7bbef7";
+				std::string plr_colour = "7bbef7";
+				std::ostringstream stream;
+				
+				stream << "|CFF" << tag_colour << "|r|cff" << plr_colour << " " << playername << "|r fue expulsado de una -> Zona Prohibida <-";
+                sWorld->SendServerMessage(SERVER_MSG_STRING, stream.str().c_str());
 
                 if (player->GetTeamId() == TEAM_HORDE)
                     player->TeleportTo(1, 1484.36f, -4417.93f, 24.4709f, 0.00f);
@@ -87,14 +94,21 @@ public:
             {
                 CharacterDatabase.Query("INSERT INTO `map_exploit` (`player`, `map`, `area`) VALUES ('{}', '{}', '{}')", playername.c_str(), mapId, player->GetAreaId());
 
-                ChatHandler(player->GetSession()).PSendSysMessage("You have gone to a forbidden place your actions have been logged.");
+                ChatHandler(player->GetSession()).PSendSysMessage("Has ido a un lugar prohibido tus acciones han sido registradas.");
+				
+				std::string tag_colour = "7bbef7";
+				std::string plr_colour = "7bbef7";
+				std::ostringstream stream;
+				
+				stream << "|CFF" << tag_colour << "|r|cff" << plr_colour << " " << playername << "|r fue expulsado de una -> Zona Prohibida <-";
+                sWorld->SendServerMessage(SERVER_MSG_STRING, stream.str().c_str());
 
-                uint32& warninggiven = player->CustomData.GetDefault<Playerwarning>("warning")->warning;
+                /*uint32& warninggiven = player->CustomData.GetDefault<Playerwarning>("warning")->warning;
 
                 if (warninggiven == maxwarnings)
                     player->GetSession()->KickPlayer();
                 else
-                    warninggiven++;
+                    warninggiven++;*/
 
                 if (player->GetTeamId() == TEAM_HORDE)
                     player->TeleportTo(1, 1484.36f, -4417.93f, 24.4709f, 0.00f);
